@@ -4,10 +4,9 @@
     print(arrayStr)
 //    sortString(arrayStr)
     
+    // ========== メイン処理 ==========
 
-    
     print("ソートする文字列「,」で区切ってを入力してください")
-    print("文字列と数字を混ぜたら殺す")
     
     let getString:String = ""    
     
@@ -18,10 +17,7 @@
 /*    
     let separatedStr:[String] = readStr(String)
     
-
-    /*----- コロコロ仕様を変えるなハゲ -------------
-    ------- 現行の空白削除とセパレートは -----------
-    ------- どうすればいいんだよ -----------------*/
+    // 読み込んだ文字列を1文字にセパレート
     func readStr(_ str: String) -> [String] {
         str = str.remove(characterSet: .whitespaces)
         let arr:[String] = str.components(separatedBy: ",")
@@ -29,16 +25,19 @@
     }
 */
 
+    // 昇順ソート
     if getSortType == "1"{
         do { try sortInt(arrayStr, false) }
         catch {sortString(arrayStr, false) }
     }
     
+    // 降順ソート
     if getSortType == "2"{
         do { try sortInt(arrayStr, true) }
         catch {sortString(arrayStr, true) }
     }
     
+    // 数字のソート
     func sortInt(_ arrInt:[String], _ des:Bool)
     {
         var arr:Array<Int> = changeInt(arrInt)
@@ -50,12 +49,11 @@
         }
     }
     
+    // 文字のソート
     func sortString(_ arrayStr:[String], _ des:Bool) 
     {
         var arr:Array<Int> = changeUnicodeInt(arrayStr)
         arr = bubbleSort(arr)
-//        var dic: Dictionary<Int, String> = changeUnicodeDic(arrayStr)
-//        arr = changeChar(arr)
         if des {
             print(descending(arr))
         }else{
@@ -63,6 +61,11 @@
         }
     }
     
+    // ==============================
+
+    // ========== メソッド ==========
+
+    // 受け取った値をInt型に変換
     func changeInt(_ arr:[String]) -> [Int]
     {
         var arrInt: Array<Int> = Array<Int>()
@@ -73,7 +76,7 @@
         return arrayInt
     }
     
-    
+    // 受け取った値をユニコードに変換
     func changeUnicodeInt(_ arrayStr :[String]) -> [Int]
     {
         var arr: Array<Int> = Array<Int>() 
@@ -88,25 +91,8 @@
         }
         return arr
     }
-/*    
-    func changeUnicodeDic(_ arrayStr :[String]) -> Dictionary<Int, String>
-    {
-        var dic: Dictionary<Int, String> = Dictionary<Int, String>()
-        for str in arrayStr{
-            var codeArr : Array<String> = Array<String>()
-            for code in str.unicodeScalars
-            {
-                codeArr.append(String(code.value))
-            }
-            var uniNum = Int(codeArr.joined())!
-            dic.updateValue(str, forKey : uniNum)
-        }
-        return dic
-    }
-*/    
-
     
-    
+    // ユニコードを文字に再変換
     func changeChar(_ arr:[Int])
     {
         var arrUInt32:Array<Any> = Array<Any>()
@@ -119,8 +105,6 @@
 //            print(a)
 
             var uint32 = UInt32(num)
-
-            
 /*
             var b = c.compactMap(UnicodeScalar.init)
             .map(Character.init)
@@ -132,7 +116,7 @@
 //        print(UInt32.compactMap(UnicodeScalar.init).map(Character.init).map(String.init))
     }
 
-
+    // バブルソート
     func bubbleSort(_ arr:[Int]) -> [Int] {
         var arr:[Int] = arr
         for x in arr{
@@ -148,6 +132,7 @@
         return arr
     }
     
+    // 降順処理の際の配列の反転
     func descending(_ arr :[Any]) -> [Any] {
         var desArr:Array<Any> = Array<Any>()
         var count:Int = arr.count-1
@@ -158,3 +143,5 @@
         }
         return desArr
     }
+
+    // ==============================
